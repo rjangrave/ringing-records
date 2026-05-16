@@ -1,0 +1,8 @@
+// ── Ringing Records Configuration Example ───────────────────────
+// Copy this file to config.js and fill in your real values
+// config.js is listed in .gitignore so it will never be committed
+// ────────────────────────────────────────────────────────────────
+
+const SUPA_URL  = 'https://xxxxxxxxxxxx.supabase.co';
+const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
+const EDGE_URL  = 'https://xxxxxxxxxxxx.supabase.co/functions/v1/write-record';
