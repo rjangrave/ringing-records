@@ -4,6 +4,11 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -13,11 +18,9 @@ jobs:
 
       - name: Create config.js from secrets
         run: |
-          cat > config.js << ENDOFCONFIG
-          const SUPA_URL  = '${{ secrets.SUPA_URL }}';
-          const SUPA_KEY  = '${{ secrets.SUPA_KEY }}';
-          const EDGE_URL  = '${{ secrets.EDGE_URL }}';
-          ENDOFCONFIG
+          echo "const SUPA_URL  = '${{ secrets.SUPA_URL }}';" > config.js
+          echo "const SUPA_KEY  = '${{ secrets.SUPA_KEY }}';" >> config.js
+          echo "const EDGE_URL  = '${{ secrets.EDGE_URL }}';" >> config.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
