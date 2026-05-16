@@ -1,0 +1,27 @@
+name: Deploy Ringing Records
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create config.js from secrets
+        run: |
+          cat > config.js << ENDOFCONFIG
+          const SUPA_URL  = '${{ secrets.SUPA_URL }}';
+          const SUPA_KEY  = '${{ secrets.SUPA_KEY }}';
+          const EDGE_URL  = '${{ secrets.EDGE_URL }}';
+          ENDOFCONFIG
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          exclude_assets: '.gitignore,.github'
