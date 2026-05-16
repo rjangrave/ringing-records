@@ -249,6 +249,7 @@ tbody td{padding:0.5rem 0.85rem;vertical-align:top;}
 .edit-ok{font-size:0.83rem;font-style:italic;color:var(--green);}
 .edit-err{font-size:0.83rem;font-style:italic;color:var(--red);}
 </style>
+<script src="config.js"></script>
 </head>
 <body>
 
@@ -588,10 +589,9 @@ function checkAuth(){
 }
 // ────────────────────────────────────────────────────────────────
 
-// ── Supabase configuration ──────────────────────────────────────
-const SUPA_URL = 'https://yhpatgfyinrbzffkebac.supabase.co';       // Project URL
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlocGF0Z2Z5aW5yYnpmZmtlYmFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2MTE3MDcsImV4cCI6MjA5NDE4NzcwN30.ioYq43E7yn0WZPwJW84zEO9308cXQJi6_j-T6YoQqrY';  // Anon key (read-only)
-const EDGE_URL = 'https://yhpatgfyinrbzffkebac.supabase.co/functions/v1/write-record'; // Edge Function (writes — key is secure server-side)
+// ── Configuration loaded from config.js ─────────────────────────
+// SUPA_URL, SUPA_KEY and EDGE_URL are defined in config.js
+// which is not committed to GitHub (see .gitignore)
 // ────────────────────────────────────────────────────────────────
 
 
@@ -601,6 +601,8 @@ const BL_PAIRED=['Treble (1-2)','2nd (3-4)','3rd (5-6)','4th (7-8)','5th (9-10)'
 const BL_SINGLE=['7th','8th','9th','10th','11th','12th','13th','14th','15th','16th'];
 const BAND_LABELS=['1st (Treble)','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th','13th','14th','15th','16th (Tenor)'];
 const STAGE_ORDER=['Doubles','Minor','Triples','Major','Caters','Royal','Cinques','Maximus','Thirteen','Fourteen','Fifteen','Sixteen'];
+const TOWER_LABELS=['1st (Treble)','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th','13th','14th','15th','16th (Tenor)'];
+const HAND_LABELS=['1–2','3–4','5–6','7–8','9–10','11–12','13–14','15–16'];
 let tlMode='both', bellsMode='peals';
 const chartMode={methods:'peals',places:'peals',coringers:'peals'};
 
@@ -1155,7 +1157,7 @@ function getPgRange(cur,tot){
 // ADD
 let addTab='peal';
 function buildBandGrid(isHand){
-  const labels=isHand?['1–2','3–4','5–6','7–8','9–10','11–12','13–14','15–16']:['1st (Treble)','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th','13th','14th','15th','16th (Tenor)'];
+  const labels=isHand?HAND_LABELS:TOWER_LABELS;
   const note=isHand?'Each ringer rings a pair of bells — enter names in pair order (up to 8 pairs).':'Enter ringers in bell order by name (up to 16).';
   const noteEl=document.getElementById('band-note');if(noteEl)noteEl.textContent=note;
   document.getElementById('band-grid').innerHTML=labels.map((l,i)=>
