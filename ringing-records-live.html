@@ -616,8 +616,8 @@ function showPage(id,btn){
 
 // DASHBOARD
 function buildDash(){
-  const pCond=P.filter(p=>p.conductor==='R J Angrave').length;
-  const qCond=Q.filter(q=>q.conductor==='R J Angrave').length;
+  const pCond=P.filter(p=>p.conductor==='Richard J Angrave').length;
+  const qCond=Q.filter(q=>q.conductor==='Richard J Angrave').length;
   const pCh=P.reduce((s,p)=>s+(Number(p.changes)||0),0);
   const qCh=Q.reduce((s,q)=>s+(Number(q.changes)||0),0);
   const pH=P.filter(p=>p.heavy==='Y').length;
@@ -765,7 +765,7 @@ function buildStageTable(mode,btn){
     rows[s].total++;
     if(r.th==='T')rows[s].tower++;
     if(r.th==='H')rows[s].hand++;
-    if(r.conductor==='R J Angrave')rows[s].cond++;
+    if(r.conductor==='Richard J Angrave')rows[s].cond++;
   });
   const tbody=document.getElementById('stage-tbody');
   tbody.innerHTML=STAGE_ORDER.filter(s=>rows[s]&&rows[s].total>0).map(s=>{
@@ -831,7 +831,7 @@ function doFilter(src,tab,q,extra){
   return src.filter(r=>{
     if(tab==='tower'&&r.th!=='T')return false;
     if(tab==='hand'&&r.th!=='H')return false;
-    if(tab==='conducted'&&r.conductor!=='R J Angrave')return false;
+    if(tab==='conducted'&&r.conductor!=='Richard J Angrave')return false;
     if(extra&&!extra(r))return false;
     if(q){const h=[r.place,r.method,r.conductor,r.comments,r.guild||''].join(' ').toLowerCase();if(!h.includes(q))return false;}
     return true;
@@ -870,7 +870,7 @@ function renderP(){
   const s=ST.peals;const sorted=doSort(s.f,s);
   const rows=sorted.slice((s.pg-1)*PS,s.pg*PS);
   document.getElementById('pt').innerHTML=rows.map(r=>{
-    const idx=P.indexOf(r);const ic=r.conductor==='R J Angrave';
+    const idx=P.indexOf(r);const ic=r.conductor==='Richard J Angrave';
     return `<tr onclick="openM(${idx},'peal')">
       <td class="dc">${fd(r.date)}</td><td>${r.place||''}</td>
       <td class="mc">${r.method||''}</td><td>${r.bell||''}</td>
@@ -887,7 +887,7 @@ function renderQ(){
   const s=ST.quarters;const sorted=doSort(s.f,s);
   const rows=sorted.slice((s.pg-1)*PS,s.pg*PS);
   document.getElementById('qt').innerHTML=rows.map(r=>{
-    const idx=Q.indexOf(r);const ic=r.conductor==='R J Angrave';
+    const idx=Q.indexOf(r);const ic=r.conductor==='Richard J Angrave';
     return `<tr onclick="openM(${idx},'quarter')">
       <td class="dc">${fd(r.date)}</td><td>${r.place||''}</td>
       <td class="mc">${r.method||''}</td><td>${r.bell||''}</td>
